@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="person">
+      <h2 data-cy="personDetailsHeading">
+        <span jhiTranslate="raasApp.person.detail.title">__jhiTransformTranslate__('raasApp.person.detail.title')</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">__jhiTransformTranslate__('global.field.id')</span></dt>
+        <dd>
+          <span>{{ person.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="raasApp.person.name">__jhiTransformTranslate__('raasApp.person.name')</span></dt>
+        <dd>
+          <span>{{ person.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="raasApp.person.motherName">__jhiTransformTranslate__('raasApp.person.motherName')</span></dt>
+        <dd>
+          <span>{{ person.motherName }}</span>
+        </dd>
+        <dt><span jhiTranslate="raasApp.person.birthdate">__jhiTransformTranslate__('raasApp.person.birthdate')</span></dt>
+        <dd>
+          <span>{{ person.birthdate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="raasApp.person.email">__jhiTransformTranslate__('raasApp.person.email')</span></dt>
+        <dd>
+          <span>{{ person.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="raasApp.person.user">__jhiTransformTranslate__('raasApp.person.user')</span></dt>
+        <dd>
+          <span>{{ person.user?.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="raasApp.person.attendancesAsProfessional"
+            >__jhiTransformTranslate__('raasApp.person.attendancesAsProfessional')</span
+          >
+        </dt>
+        <dd>
+          <div *ngIf="person.attendancesAsProfessional">
+            <a [routerLink]="['/attendance', person.attendancesAsProfessional.id, 'view']">{{ person.attendancesAsProfessional.id }}</a>
+          </div>
+        </dd>
+        <dt>
+          <span jhiTranslate="raasApp.person.attendancesAsPatient">__jhiTransformTranslate__('raasApp.person.attendancesAsPatient')</span>
+        </dt>
+        <dd>
+          <div *ngIf="person.attendancesAsPatient">
+            <a [routerLink]="['/attendance', person.attendancesAsPatient.id, 'view']">{{ person.attendancesAsPatient.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"
+          >__jhiTransformTranslate__('entity.action.back')</span
+        >
+      </button>
+
+      <button type="button" [routerLink]="['/person', person.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"
+          >__jhiTransformTranslate__('entity.action.edit')</span
+        >
+      </button>
+    </div>
+  </div>
+</div>

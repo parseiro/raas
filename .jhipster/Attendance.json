@@ -1,0 +1,43 @@
+{
+  "applications": "*",
+  "changelogDate": "20231019230402",
+  "entityTableName": "attendance",
+  "fields": [
+    {
+      "fieldName": "dateTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "place",
+      "fieldType": "Place",
+      "fieldValues": "INSTITUTION,TERRITORY"
+    },
+    {
+      "fieldName": "howMany",
+      "fieldType": "HowMany",
+      "fieldValues": "INDIVIDUAL,GROUP"
+    }
+  ],
+  "name": "Attendance",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "attendancesAsProfessional",
+      "relationshipName": "professional",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "attendancesAsPatient",
+      "relationshipName": "patient",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

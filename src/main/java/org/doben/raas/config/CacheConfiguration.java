@@ -48,6 +48,10 @@ public class CacheConfiguration {
             createCache(cm, org.doben.raas.domain.User.class.getName());
             createCache(cm, org.doben.raas.domain.Authority.class.getName());
             createCache(cm, org.doben.raas.domain.User.class.getName() + ".authorities");
+            createCache(cm, org.doben.raas.domain.Person.class.getName());
+            createCache(cm, org.doben.raas.domain.Attendance.class.getName());
+            createCache(cm, org.doben.raas.domain.Attendance.class.getName() + ".professionals");
+            createCache(cm, org.doben.raas.domain.Attendance.class.getName() + ".patients");
             // jhipster-needle-ehcache-add-entry
         };
     }

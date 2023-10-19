@@ -1,0 +1,111 @@
+<div>
+  <h2 id="page-heading" data-cy="AttendanceHeading">
+    <span jhiTranslate="raasApp.attendance.home.title">__jhiTransformTranslate__('raasApp.attendance.home.title')</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="raasApp.attendance.home.refreshListLabel"
+          >__jhiTransformTranslate__('raasApp.attendance.home.refreshListLabel')</span
+        >
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-attendance"
+        [routerLink]="['/attendance/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="raasApp.attendance.home.createLabel">__jhiTransformTranslate__('raasApp.attendance.home.createLabel')</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="attendances?.length === 0">
+    <span jhiTranslate="raasApp.attendance.home.notFound">__jhiTransformTranslate__('raasApp.attendance.home.notFound')</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="attendances && attendances.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">__jhiTransformTranslate__('global.field.id')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="dateTime">
+            <div class="d-flex">
+              <span jhiTranslate="raasApp.attendance.dateTime">__jhiTransformTranslate__('raasApp.attendance.dateTime')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="place">
+            <div class="d-flex">
+              <span jhiTranslate="raasApp.attendance.place">__jhiTransformTranslate__('raasApp.attendance.place')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="howMany">
+            <div class="d-flex">
+              <span jhiTranslate="raasApp.attendance.howMany">__jhiTransformTranslate__('raasApp.attendance.howMany')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
+        <tr *ngFor="let attendance of attendances; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/attendance', attendance.id, 'view']">{{ attendance.id }}</a>
+          </td>
+          <td>{{ attendance.dateTime | formatMediumDatetime }}</td>
+          <td jhiTranslate="{{ 'raasApp.Place.' + attendance.place }}">{{ attendance.place }}</td>
+          <td jhiTranslate="{{ 'raasApp.HowMany.' + attendance.howMany }}">{{ attendance.howMany }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/attendance', attendance.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">__jhiTransformTranslate__('entity.action.view')</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/attendance', attendance.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">__jhiTransformTranslate__('entity.action.edit')</span>
+              </button>
+
+              <button type="submit" (click)="delete(attendance)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete"
+                  >__jhiTransformTranslate__('entity.action.delete')</span
+                >
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

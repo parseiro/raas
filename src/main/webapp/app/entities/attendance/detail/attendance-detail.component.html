@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="attendance">
+      <h2 data-cy="attendanceDetailsHeading">
+        <span jhiTranslate="raasApp.attendance.detail.title">__jhiTransformTranslate__('raasApp.attendance.detail.title')</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">__jhiTransformTranslate__('global.field.id')</span></dt>
+        <dd>
+          <span>{{ attendance.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="raasApp.attendance.dateTime">__jhiTransformTranslate__('raasApp.attendance.dateTime')</span></dt>
+        <dd>
+          <span>{{ attendance.dateTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="raasApp.attendance.place">__jhiTransformTranslate__('raasApp.attendance.place')</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'raasApp.Place.' + attendance.place }}">{{ attendance.place }}</span>
+        </dd>
+        <dt><span jhiTranslate="raasApp.attendance.howMany">__jhiTransformTranslate__('raasApp.attendance.howMany')</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'raasApp.HowMany.' + attendance.howMany }}">{{ attendance.howMany }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"
+          >__jhiTransformTranslate__('entity.action.back')</span
+        >
+      </button>
+
+      <button type="button" [routerLink]="['/attendance', attendance.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"
+          >__jhiTransformTranslate__('entity.action.edit')</span
+        >
+      </button>
+    </div>
+  </div>
+</div>
