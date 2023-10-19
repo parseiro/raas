@@ -1,0 +1,47 @@
+/**
+ * Pessoa entity.
+ */
+entity Person {
+	name String required
+    motherName String required
+    birthdate LocalDate required
+    email String
+}
+
+enum Place {
+	INSTITUTION,
+    TERRITORY
+}
+
+enum HowMany {
+	INDIVIDUAL,
+    GROUP
+}
+
+entity Attendance {
+    dateTime Instant
+    place Place
+    howMany HowMany
+}
+
+relationship ManyToOne {
+    Person{attendancesAsProfessional} to Attendance{professional required}
+    Person{attendancesAsPatient} to Attendance{patient required}
+}
+
+relationship OneToOne {
+  Person to User with builtInEntity
+}
+
+
+// Set pagination options
+paginate Person, Attendance with infinite-scroll
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
